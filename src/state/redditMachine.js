@@ -14,7 +14,7 @@ function invokeFetchSubreddit(context) {
     .then(json => json.data.children.map((child) => child.data));
 }
 
-const redditMachine = createMachine({
+export const redditMachine = createMachine({
   id: 'reddit',
   initial: 'idle',
   context: {
@@ -35,12 +35,12 @@ const redditMachine = createMachine({
                 posts: (context, event) => event.data
               })
             },
-            onError: 'failed',
-          },
+            onError: 'failed'
+          }
         },
         loaded: {},
-        failed: {},
-      },
+        failed: {}
+      }
     },
   },
   on: {
