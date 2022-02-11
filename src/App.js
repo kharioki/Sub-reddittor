@@ -24,7 +24,7 @@ function App() {
           ))}
         </select>
       </header>
-      {subreddit && <Subreddit name={subreddit} key={subreddit} />}
+      {subreddit && <Subreddit service={subreddit} key={subreddit} />}
     </main>
   );
 }

@@ -1,12 +1,12 @@
 import { useMemo } from "react";
-import { useMachine } from "@xstate/react";
+import { useMachine, useActor } from "@xstate/react";
 import { createSubredditMachine } from "../state/redditMachine";
 
-export const Subreddit = ({ name }) => {
+export const Subreddit = ({ service }) => {
   // only create the machine based on the subreddit name once
-  const subredditMachine = useMemo(() => createSubredditMachine(name), [name]);
+  // const subredditMachine = useMemo(() => createSubredditMachine(name), [name]);
 
-  const [current, send] = useMachine(subredditMachine);
+  const [current, send] = useActor(service);
 
   if (current.matches('failure')) {
     return (
@@ -21,7 +21,7 @@ export const Subreddit = ({ name }) => {
 
   return (
     <section
-      data-machine={subredditMachine.id}
+      data-machine={service.id}
       data-state={current.toStrings().join(' ')}
     >
       {current.matches('loading') && <div>Loading posts...</div>}
